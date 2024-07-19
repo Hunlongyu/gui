@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider>
+  <n-config-provider :theme="darkTheme">
     <n-message-provider>
       <Layout></Layout>
     </n-message-provider>
@@ -8,6 +8,7 @@
 
 <script setup>
 import Layout from './components/layout.vue';
+import { darkTheme } from 'naive-ui'
 </script>
 
 <style lang="scss" scoped>
