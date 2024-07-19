@@ -15,7 +15,7 @@
 <script setup>
 import { NIcon } from 'naive-ui'
 import { DownloadOne, SettingOne, ApiApp } from '@icon-park/vue-next'
-import router from '../router';
+import router from '../router'
 const menuOptions = [
     {
         label: '下载',
@@ -42,6 +42,8 @@ function renderIcon(icon) {
 }
 
 function menuSelect(key, item) {
-    router.push(item.path);
+    router.push(item.path)
 }
 </script>
+
+<style lang="scss" scoped></style>

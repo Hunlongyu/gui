@@ -1,9 +1,9 @@
 <template>
     <div class="download">
-        <n-layout-header border class="download-header">
+        <n-layout-header bordered class="download-header">
             <n-popover trigger="hover">
                 <template #trigger>
-                    <n-button circle>
+                    <n-button circle @click="addTask">
                         <n-icon size="20">
                             <Add />
                         </n-icon>
@@ -11,39 +11,144 @@
                 </template>
                 <span>添加下载任务</span>
             </n-popover>
-            <n-button circle>
-                <n-icon size="20">
-                    <Download />
-                </n-icon>
-            </n-button>
-            <n-button circle>
-                <n-icon size="20">
-                    <Pause />
-                </n-icon>
-            </n-button>
-            <n-button circle>
-                <n-icon size="20">
-                    <Delete />
-                </n-icon>
-            </n-button>
-            <n-button circle>
-                <n-icon size="20">
-                    <MergeCells />
-                </n-icon>
-            </n-button>
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <n-button circle @click="startTask">
+                        <n-icon size="20">
+                            <PlayOne />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>开始下载</span>
+            </n-popover>
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <n-button circle @click="stopTask">
+                        <n-icon size="20">
+                            <Pause />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>停止下载</span>
+            </n-popover>
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <n-button circle @click="deleteTask">
+                        <n-icon size="20">
+                            <Delete />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>删除任务</span>
+            </n-popover>
+            <n-divider vertical />
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <n-button circle @click="videoMerge">
+                        <n-icon size="20">
+                            <MergeCells />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>视频合并</span>
+            </n-popover>
         </n-layout-header>
         <n-layout-content class="download-content" :native-scrollbar="false">
-            <p>p</p>
-            <p>p</p>
+            <n-data-table striped :columns="columns" :data="data" :pagination="false" :bordered="false"
+                :row-key="(row) => row.key" @update:checked-row-keys="handleCheck" @contextmenu="handleContextMenu" />
+            <n-dropdown placement="bottom-start" trigger="manual" :x="x" :y="y" :options="options" :show="showDropdown"
+                :on-clickoutside="onClickoutside" @select="handleSelect" />
         </n-layout-content>
-        <n-layout-footer class="download-footer">
-            footer
+        <n-layout-footer bordered class="download-footer">
+            log
         </n-layout-footer>
     </div>
 </template>
 
 <script setup>
-import { Add, Download, Pause, Delete, MergeCells } from '@icon-park/vue-next'
+import { Add, PlayOne, Pause, Delete, MergeCells } from '@icon-park/vue-next'
+import { NButton, useMessage } from 'naive-ui'
+import { ref } from 'vue'
+
+const message = useMessage()
+
+const data = ref([
+    { key: "uuid1", name: "Wonderwall", process: "20%", speed: "1Mbps", status: "下载中", remainder: "12:04:18" },
+    { key: "uuid2", name: "Don't Look Back in Anger", process: "60%", speed: "1Mbps", status: "下载中", remainder: "4:48" },
+    { key: "uuid3", name: "Champagne Supernova", process: "100%", speed: "0Mbps", status: "合并中", remainder: "0:00" },
+    { key: "uuid4", name: "I love you", process: "100%", speed: "0Mbps", status: "已完成", remainder: "0:00" }
+])
+
+const columns = [
+    { type: "selection" },
+    {
+        title: "名称", key: 'name', align: "left", minWidth: 200,
+        ellipsis: {
+            tooltip: true
+        }
+    },
+    { title: "进度", key: 'process', width: 100, align: "center" },
+    { title: "速度", key: 'speed', width: 100, align: "center" },
+    { title: "状态", key: 'status', width: 100, align: "center" },
+    { title: "剩余时间", key: 'remainder', width: 100, align: "center" }
+]
+
+const checkedRowKeys = ref([]) // 选中的行
+
+function handleCheck(rowKeys) {
+    checkedRowKeys.value = rowKeys
+}
+
+const showDropdown = ref(false)
+const x = ref(0)
+const y = ref(0)
+const options = [
+    { label: '开始', key: 'start' },
+    { label: '停止', key: 'stop' }
+]
+
+function handleContextMenu(event, row) {
+    console.log(event, row)
+    event.preventDefault()
+    showDropdown.value = true
+    x.value = event.clientX
+    y.value = event.clientY
+}
+
+function onClickoutside() {
+    showDropdown.value = false
+}
+
+function handleSelect(key) {
+    showDropdown.value = false
+    console.log(key)
+}
+
+// 添加任务
+function addTask() {
+    console.log(checkedRowKeys.value)
+}
+
+// 开始任务
+function startTask() {
+    console.log(checkedRowKeys.value)
+}
+
+// 停止任务
+function stopTask() {
+    console.log(checkedRowKeys.value)
+}
+
+// 删除任务
+function deleteTask() {
+    console.log(checkedRowKeys.value)
+}
+
+//  视频合并
+function videoMerge() {
+    console.log(checkedRowKeys.value)
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -58,7 +163,8 @@ import { Add, Download, Pause, Delete, MergeCells } from '@icon-park/vue-next'
         justify-content: flex-start;
 
         button {
-            margin-left: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
         }
     }
 
@@ -66,6 +172,11 @@ import { Add, Download, Pause, Delete, MergeCells } from '@icon-park/vue-next'
         overflow: auto;
     }
 
-    .download-footer {}
+    .download-footer {
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
 </style>
