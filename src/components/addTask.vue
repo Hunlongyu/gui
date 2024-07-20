@@ -1,5 +1,5 @@
 <template>
-    <n-modal v-model:show="showModal" transform-origin="center">
+    <n-modal v-model:show="showModal" transform-origin="center" @negative-click="cancel">
         <n-card style="max-width: 680px" title="添加下载任务" bordered closable @close="cancel">
             <n-form ref="data" :model="model" label-placement="left" label-width="80"
                 require-mark-placement="right-hanging">
@@ -76,7 +76,7 @@
             <template #action>
                 <n-space justify="end">
                     <n-button @click="confirm">确认</n-button>
-                    <n-button @click="cancel">取消</n-button>
+                    <n-button type="tertiary" @click="cancel">取消</n-button>
                 </n-space>
             </template>
         </n-card>
@@ -152,7 +152,6 @@ function confirm() {
 }
 
 function cancel() {
-    emit('addTaskCancel')
     showModal.value = false
 }
 </script>

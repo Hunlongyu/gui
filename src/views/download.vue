@@ -4,7 +4,7 @@
             <n-popover trigger="hover">
                 <template #trigger>
                     <n-button circle @click="addTask">
-                        <n-icon size="20">
+                        <n-icon size="18">
                             <Add />
                         </n-icon>
                     </n-button>
@@ -13,8 +13,18 @@
             </n-popover>
             <n-popover trigger="hover">
                 <template #trigger>
+                    <n-button circle @click="addBatchTask">
+                        <n-icon size="18">
+                            <MoreFour />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>批量添加下载任务</span>
+            </n-popover>
+            <n-popover trigger="hover">
+                <template #trigger>
                     <n-button circle @click="startTask">
-                        <n-icon size="20">
+                        <n-icon size="18">
                             <PlayOne />
                         </n-icon>
                     </n-button>
@@ -24,7 +34,7 @@
             <n-popover trigger="hover">
                 <template #trigger>
                     <n-button circle @click="stopTask">
-                        <n-icon size="20">
+                        <n-icon size="18">
                             <Pause />
                         </n-icon>
                     </n-button>
@@ -34,18 +44,28 @@
             <n-popover trigger="hover">
                 <template #trigger>
                     <n-button circle @click="deleteTask">
-                        <n-icon size="20">
+                        <n-icon size="18">
                             <Delete />
                         </n-icon>
                     </n-button>
                 </template>
                 <span>删除任务</span>
             </n-popover>
+            <n-popover trigger="hover">
+                <template #trigger>
+                    <n-button circle @click="clearTask">
+                        <n-icon size="18">
+                            <Clear />
+                        </n-icon>
+                    </n-button>
+                </template>
+                <span>清空已完成任务</span>
+            </n-popover>
             <n-divider vertical />
             <n-popover trigger="hover">
                 <template #trigger>
                     <n-button circle @click="videoMerge">
-                        <n-icon size="20">
+                        <n-icon size="18">
                             <MergeCells />
                         </n-icon>
                     </n-button>
@@ -61,13 +81,13 @@
             log
         </n-layout-footer>
     </div>
-    <AddTask v-model="showModal" @addTaskConfirm="addTaskConfirm" @addTaskCancel="addTaskCancel" />
+    <AddTask v-model="showModal" @addTaskConfirm="addTaskConfirm" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { NButton, useMessage } from 'naive-ui'
-import { Add, PlayOne, Pause, Delete, MergeCells } from '@icon-park/vue-next'
+import { Add, MoreFour, PlayOne, Pause, Delete, Clear, MergeCells } from '@icon-park/vue-next'
 import AddTask from '../components/addTask.vue'
 
 const message = useMessage()
@@ -106,14 +126,13 @@ function addTask() {
     showModal.value = true;
 }
 
+// 批量添加任务
+function addBatchTask() { }
+
+// 确认添加任务
 function addTaskConfirm() {
     console.log("confirm")
-    message.info("添加下载任务", {})
-}
-
-function addTaskCancel() {
-    console.log('cancel')
-    message.info("取消下载任务")
+    message.success("添加下载任务成功")
 }
 
 // 开始任务
@@ -131,6 +150,9 @@ function stopTask() {
 function deleteTask() {
     console.log(checkedRowKeys.value)
 }
+
+// 清空已完成任务
+function clearTask() { }
 
 //  视频合并
 function videoMerge() {
