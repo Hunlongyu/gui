@@ -108,15 +108,18 @@ function addTask() {
 
 function addTaskConfirm() {
     console.log("confirm")
+    message.info("添加下载任务", {})
 }
 
 function addTaskCancel() {
     console.log('cancel')
+    message.info("取消下载任务")
 }
 
 // 开始任务
 function startTask() {
     console.log(checkedRowKeys.value)
+    message.info("开始下载任务")
 }
 
 // 停止任务
