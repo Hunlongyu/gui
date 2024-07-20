@@ -55,20 +55,20 @@
         </n-layout-header>
         <n-layout-content class="download-content" :native-scrollbar="false">
             <n-data-table striped :columns="columns" :data="data" :pagination="false" :bordered="false"
-                :row-key="(row) => row.key" @update:checked-row-keys="handleCheck" @contextmenu="handleContextMenu" />
-            <n-dropdown placement="bottom-start" trigger="manual" :x="x" :y="y" :options="options" :show="showDropdown"
-                :on-clickoutside="onClickoutside" @select="handleSelect" />
+                :row-key="(row) => row.key" @update:checked-row-keys="handleCheck" />
         </n-layout-content>
         <n-layout-footer bordered class="download-footer">
             log
         </n-layout-footer>
     </div>
+    <AddTask v-model="showModal" @addTaskConfirm="addTaskConfirm" @addTaskCancel="addTaskCancel" />
 </template>
 
 <script setup>
-import { Add, PlayOne, Pause, Delete, MergeCells } from '@icon-park/vue-next'
-import { NButton, useMessage } from 'naive-ui'
 import { ref } from 'vue'
+import { NButton, useMessage } from 'naive-ui'
+import { Add, PlayOne, Pause, Delete, MergeCells } from '@icon-park/vue-next'
+import AddTask from '../components/addTask.vue'
 
 const message = useMessage()
 
@@ -99,34 +99,19 @@ function handleCheck(rowKeys) {
     checkedRowKeys.value = rowKeys
 }
 
-const showDropdown = ref(false)
-const x = ref(0)
-const y = ref(0)
-const options = [
-    { label: '开始', key: 'start' },
-    { label: '停止', key: 'stop' }
-]
-
-function handleContextMenu(event, row) {
-    console.log(event, row)
-    event.preventDefault()
-    showDropdown.value = true
-    x.value = event.clientX
-    y.value = event.clientY
-}
-
-function onClickoutside() {
-    showDropdown.value = false
-}
-
-function handleSelect(key) {
-    showDropdown.value = false
-    console.log(key)
-}
+const showModal = ref(false);
 
 // 添加任务
 function addTask() {
-    console.log(checkedRowKeys.value)
+    showModal.value = true;
+}
+
+function addTaskConfirm() {
+    console.log("confirm")
+}
+
+function addTaskCancel() {
+    console.log('cancel')
 }
 
 // 开始任务

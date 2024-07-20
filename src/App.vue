@@ -1,7 +1,9 @@
 <template>
   <n-config-provider :theme="darkTheme">
     <n-message-provider>
-      <Layout></Layout>
+      <n-modal-provider>
+        <Layout></Layout>
+      </n-modal-provider>
     </n-message-provider>
   </n-config-provider>
 </template>
