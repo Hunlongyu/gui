@@ -1,7 +1,7 @@
 <template>
     <n-space vertical size="large">
         <n-layout has-sider position="absolute">
-            <n-layout-sider bordered collapse-mode="width" :collapsed-width="64" :width="120" :native-scrollbar="false">
+            <n-layout-sider bordered collapse-mode="width" show-trigger :collapsed-width="64" :width="120">
                 <n-menu :collapsed-width="64" :collapsed-icon-size="20" :options="menuOptions"
                     @update:value="menuSelect" />
             </n-layout-sider>
