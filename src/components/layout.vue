@@ -14,14 +14,26 @@
 
 <script setup>
 import { NIcon } from 'naive-ui'
-import { DownloadOne, SettingOne, ApiApp } from '@icon-park/vue-next'
+import { DownloadOne, VideoOne, Toolkit, SettingOne, ApiApp } from '@icon-park/vue-next'
 import router from '../router'
 const menuOptions = [
     {
         label: '下载',
-        key: 'hear-the-wind-sing',
+        key: 'download',
         path: 'download',
         icon: renderIcon(DownloadOne)
+    },
+    {
+        label: '录制',
+        key: 'record',
+        path: 'record',
+        icon: renderIcon(VideoOne)
+    },
+    {
+        label: '工具',
+        key: 'tools',
+        path: 'tools',
+        icon: renderIcon(Toolkit)
     },
     {
         label: '设置',
